@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>使用js创建虚拟DOM</title>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test2"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+
+	<script type="text/javascript">
+			const myId = 'aTgUiGu'
+			const myData = 'hElLo woRlD'
+
+			//1.创建虚拟DOM
+			const VDOM = React.createElement('h2',{id:myId.toUpperCase()},React.createElement('span',{},myData.toUpperCase()))
+			//2.渲染虚拟DOM到页面
+			ReactDOM.render(VDOM,document.getElementById('test2'))
+	</script>
+
+</body>
+</html>
