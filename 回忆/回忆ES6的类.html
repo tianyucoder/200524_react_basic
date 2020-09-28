@@ -36,6 +36,7 @@
 		
 		//继承——————目的是让子类的实例也可以用到父类的原型上的方法(复用)
 		class Student extends Person{
+			//构造器函数
 			constructor(name,age,sex,school){
 				/* 	
 					子类如果写了构造器函数，则必须在构造器中调用super
@@ -48,7 +49,7 @@
 		const s1 = new Student('tom',18,'男','atguigu')
 		console.log(s1);
 		s1.speak()
-
+		
 	</script>
 </body>
 </html>
