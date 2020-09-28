@@ -37,13 +37,11 @@
 		//继承——————目的是让子类的实例也可以用到父类的原型上的方法(复用)
 		class Student extends Person{
 			//构造器函数
-			constructor(name,age,sex,school){
-				/* 	
-					子类如果写了构造器函数，则必须在构造器中调用super
-					子类中借助super调用父类的构造器函数，可以简化代码 
-				*/
-				super(name,age,sex)
-				this.school = school //子类自己独有的属性，要亲自放在自身，不能借助super了
+			constructor(...args){
+				//子类如果写了构造器函数，则必须在构造器中调用super
+				//子类中借助super调用父类的构造器函数，可以简化代码 
+				super(...args)
+				// this.school = school //子类自己独有的属性，要亲自放在自身，不能借助super了
 			}
 		}
 		const s1 = new Student('tom',18,'男','atguigu')

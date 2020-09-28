@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsx语法规则</title>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 3.引入babel，解析jsx为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		//1.定义一个类式组件
+		class MyComponent extends React.Component{
+			//构造器
+			//constructor中的this是谁？————————MyComponent的实例对象
+			constructor(...args){
+				// console.log('%%',args);
+				super(...args)
+				console.log('***',this);
+			}
+			//render是放在哪里的？————————MyComponent的原型上
+			//render中的this是谁？————————MyComponent的实例对象
+			//谁能调用到render？————————MyComponent的实例对象
+			render(){
+				console.log('@',this);
+				return <h2>我是用类定义的组件(适用于【复杂组件】的定义)</h2>
+			}
+		}
+		//2.渲染组件到页面
+		ReactDOM.render(<MyComponent/>,document.getElementById('test'))
+			/* 
+				执行了ReactDOM.render(<MyComponent/>.....后发生了什么？
+						1.React发现程序员写的是组件标签，去查找MyComponent组件是否定义了。
+						2.发现MyComponent组件使用类定义的，随后new出了一个该类的实例对象。
+						3.通过上一步new出来的实例对象，调用到了render,获取到返回值。
+						4.将返回值中的虚拟DOM，渲染到页面。
+		 */
+	</script>
+</body>
+</html>
