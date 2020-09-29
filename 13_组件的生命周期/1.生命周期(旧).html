@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>受控组件</title>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 3.引入babel，解析jsx为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		//1.定义组件
+		class Add extends React.Component{
+			constructor(){
+				console.log('constructor');
+				super()
+				//初始化状态
+				this.state = {count:0}
+			}
+			//组件挂载完毕的钩子
+			componentDidMount(){
+			 console.log('componentDidMount');
+			}
+			//组件即将卸载的钩子
+			componentWillUnmount(){
+				console.log('componentWillUnmount');
+			}
+			//组件将要挂载的钩子
+			componentWillMount(){
+				console.log('componentWillMount');
+			}
+			//控制组件是否可以更新的钩子(返回值：true(默认) false)
+			shouldComponentUpdate(){
+				console.log('shouldComponentUpdate');
+				return false
+			}
+			//组件将要更新的钩子
+			componentWillUpdate(){
+				console.log('componentWillUpdate');
+			}
+			//组件完成更新的钩子
+			componentDidUpdate(){
+				console.log('componentDidUpdate');
+			}
+			//卸载组件(自定义)
+			death = ()=>{
+				//卸载组件
+				ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+			}
+			//加1的方法(自定义)
+			add = ()=>{
+				const {count} = this.state
+				this.setState({count:count+1})
+			}
+			//强制更新按钮的回调
+			qiangzhi = ()=>{
+				this.forceUpdate()
+			}
+			render(){
+				console.log('render');
+				return (
+					<div>
+						<h1>当前的和为：{this.state.count}</h1>
+						<button onClick={this.death}>不活了</button>
+						<button onClick={this.add}>点我加1</button>
+						<button onClick={this.qiangzhi}>点我进行强制更新</button>
+					</div>
+				)
+			}
+		}
+		//2.渲染组件
+		ReactDOM.render(<Add/>,document.getElementById('test'))
+	</script>
+</body>
+</html>
