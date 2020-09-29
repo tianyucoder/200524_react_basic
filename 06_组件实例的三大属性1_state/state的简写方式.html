@@ -18,9 +18,9 @@
 		//1.定义一个组件
 		class Weather extends React.Component {
 			//初始化状态
-			state = {isHot:true}
+			state = {isHot:true,wind:'微风'}
 			render(){
-				return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot? '炎热' : '凉爽'}</h1>
+				return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot? '炎热' : '凉爽'}，{this.state.wind}</h1>
 			}
 			//一般方法
 			changeWeather = ()=>{
@@ -29,6 +29,7 @@
 				//严重注意：状态(state)是不可以直接修改的，下面这行就是直接修改。
 				//that.state.isHot = true
 				const {isHot} = this.state
+				//setState更新状态是合并对象的一个操作，不是替换！！
 				this.setState({isHot:!isHot})
 			}
 		}
