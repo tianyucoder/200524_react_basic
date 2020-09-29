@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>createRef形式的ref</title>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 3.引入babel，解析jsx为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		//1.定义组件
+		class MyComponent extends React.Component{
+
+			myRef = React.createRef() //React.createRef()会创建一个ref容器，该容器“专人专用”
+			myRef2 = React.createRef() //React.createRef()会创建一个ref容器，该容器“专人专用”
+
+			showData = ()=>{
+				console.log(this.myRef.current.value);
+			}
+			
+			showData2 = ()=>{
+				console.log(this.myRef2.current.value);
+			}
+			
+			render(){
+				return (
+					<div>
+						<input ref={this.myRef} type="text" placeholder="点击按钮提示"/>
+						<button onClick={this.showData}>提示输入数据</button>
+						<input ref={this.myRef2} onBlur={this.showData2} type="text" placeholder="失去焦点提示"/>
+					</div>
+				)
+			}
+		}
+		//2.渲染组件
+		ReactDOM.render(<MyComponent/>,document.getElementById('test'))
+	</script>
+</body>
+</html>
