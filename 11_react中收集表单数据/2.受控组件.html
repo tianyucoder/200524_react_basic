@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>受控组件</title>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 3.引入babel，解析jsx为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		//受控组件：组件中所有输入类的DOM，随着用户的输入，自动将输入的值维护进自身的状态，需要的时候从状态中取出。
+		//1.定义组件
+		class Login extends React.Component{
+			//初始化状态
+			state = {
+				username:'',
+				password:''
+			}
+
+			handleSubmit = (event)=>{
+				event.preventDefault() //阻止默认事件
+				const {username,password} = this.state
+				alert(`用户名是：${username}，密码是：${password}`)
+			}
+
+			//用户实时存储用户名到state
+			saveUsername = (event)=>{
+				this.setState({username:event.target.value})
+			}
+
+			//用户实时存储密码到state
+			savePassword = (event)=>{
+				this.setState({password:event.target.value})
+			}
+
+			render(){
+				return (
+					<form onSubmit={this.handleSubmit} action="https://www.baidu.com">
+						用户名：<input type="text" onChange={this.saveUsername}/>
+						密码：<input type="password" onChange={this.savePassword}/>
+						<input type="submit" value="登录"/>
+					</form>
+				)
+			}
+		}
+		//2.渲染组件
+		ReactDOM.render(<Login/>,document.getElementById('test'))
+	</script>
+</body>
+</html>
