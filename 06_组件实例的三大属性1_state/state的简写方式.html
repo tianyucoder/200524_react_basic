@@ -17,21 +17,14 @@
 	<script type="text/babel">
 		//1.定义一个组件
 		class Weather extends React.Component {
-			constructor(...args){
-				//构造器调用几次？------1次
-				console.log('constructor被调用了');
-				super(...args)
-				this.state = {isHot:false} //初始化状态，isHot是天气标识
-				this.changeWeather = this.changeWeather.bind(this)
-			}
+			//初始化状态
+			state = {isHot:true}
 			render(){
-				//render调用几次？-----1+n次
-				console.log('render被调用了');
 				return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot? '炎热' : '凉爽'}</h1>
 			}
 			//一般方法
-			changeWeather(){
-				// console.log('@',this);
+			changeWeather = ()=>{
+				console.log('@',this);
 				// console.log(that.state.isHot);
 				//严重注意：状态(state)是不可以直接修改的，下面这行就是直接修改。
 				//that.state.isHot = true
