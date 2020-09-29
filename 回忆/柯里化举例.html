@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>柯里化举例</title>
+</head>
+<body>
+	<script type="text/javascript" >
+
+		//非柯里化的写法
+		// function add (a,b,c){
+		// 	return a+b+c
+		// }
+		// const a = add(1,2,3)
+		// console.log(a);
+
+		//柯里化写法
+		function add(a){
+			return (b)=>{
+				return (c)=>{
+					return a+b+c
+				}
+			}
+		}
+		const result = add(1)(2)(3)
+		console.log(result);
+	</script>
+</body>
+</html>
