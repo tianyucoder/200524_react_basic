@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>受控组件</title>
+	<style>
+		.wraper{
+			width: 200px;
+			height: 100px;
+			overflow: auto;
+		}
+		.news{
+			width: 100%;
+			height: 30px;
+			background-color: orange;
+		}
+	</style>
+</head>
+<body>
+	<!-- 准备好一个DOM容器 -->
+	<div id="test"></div>
+	<!-- 1.引入react核心库 -->
+	<script type="text/javascript" src="../js/react.development.js"></script>
+	<!-- 2.引入react-dom，用于支持react的DOM操作 -->
+	<script type="text/javascript" src="../js/react-dom.development.js"></script>
+	<!-- 3.引入babel，解析jsx为js -->
+	<script type="text/javascript" src="../js/babel.min.js"></script>
+
+	<script type="text/babel">
+		class News extends React.Component{
+
+			state = {
+				newsArr:[]
+			}
+
+			componentDidMount(){
+				setInterval(() => {
+					const {newsArr} = this.state
+					const news = `新闻`+(newsArr.length+1)
+					this.setState({newsArr:[news,...newsArr]})
+				},1000);
+			}
+
+			getSnapshotBeforeUpdate(){
+				return this.refs.wraper.scrollHeight
+			}
+
+			componentDidUpdate(a,b,preHeight){
+				this.refs.wraper.scrollTop += this.refs.wraper.scrollHeight - preHeight
+			}
+
+			render(){
+				return (
+					<div className="wraper" ref="wraper">
+						{
+							this.state.newsArr.map((n,index)=>{
+								return <div key={index} className="news">{n}</div>
+							})
+						}
+					</div>
+				)
+			}
+		}
+		ReactDOM.render(<News/>,document.getElementById('test'))
+	</script>
+</body>
+</html>

@@ -87,7 +87,7 @@
 			}
 			//老刘换车的方法
 			changCar = ()=>{
-				this.setState({carName:'奔驰·c63'})
+				this.setState({carName:'奔驰·c63'+Date.now()})
 			}
 			render(){
 				console.log('render');
@@ -110,6 +110,10 @@
 			UNSAFE_componentWillReceiveProps(){
 				console.log('------Car------componentWillReceiveProps');
 			}
+			// componentDidUpdate(preProps){
+			// 	console.log('%%%',preProps);
+			// 	console.log('componentDidUpdate');
+			// }
 			render(){
 				const {carName} = this.props
 				return <h2>我有一台车，型号是：{carName}</h2>

@@ -16,20 +16,21 @@
 
 	<script type="text/babel">
 		  /* 
-				生命周期的三个阶段（旧）
-						1.初始化阶段: 由ReactDOM.render()触发---初次渲染
+				生命周期的三个阶段（新）
+					1.初始化阶段:  由ReactDOM.render()触发
 								* constructor()
-								* componentWillMount()
+								* getDerivedStateFromProps() ---不常用
 								* render()
 								* componentDidMount()
-						2.更新阶段: 由组件内部this.setSate()或父组件重新render触发或this.forceUpdate()
-								* shouldComponentUpdate() 备注：forceUpdate()不走
-								* componentWillUpdate()
+					2.更新阶段 由组件内部this.setSate()或父组件重新render触发
+								* getDerivedStateFromProps()
+								* shouldComponentUpdate()
 								* render()
+								* getSnapshotBeforeUpdate() ----不常用
 								* componentDidUpdate()
-						3.卸载组件: 由ReactDOM.unmountComponentAtNode(containerDOM)或隐藏子组件触
+					3.移除组件: 由ReactDOM.unmountComponentAtNode(containerDom)触发
 								* componentWillUnmount()
-		*/
+	*/
 		//定义一个求和组件
 		class Add extends React.Component{
 			//构造器
@@ -42,10 +43,19 @@
 
 			//从props获取一个衍生的状态
 			//只有一个使用场景：组件的state完全取决于外部传递过来的props
-			static getDerivedStateFromProps(props,state){
-				console.log('@',props,state);
-				console.log('getDerivedStateFromProps');
-				return {count:props.count}
+			// static getDerivedStateFromProps(props,state){
+			// 	console.log('@',props,state);
+			// 	console.log('getDerivedStateFromProps');
+			// 	return {count:props.count}
+			// }
+
+			getSnapshotBeforeUpdate(){
+				console.log('getSnapshotBeforeUpdate');
+				return [];
+			}
+			componentDidUpdate(preProps,preState,snapShotvalue){
+				console.log('%%%',preProps,preState,snapShotvalue);
+				console.log('componentDidUpdate');
 			}
 
 			//卸载组件(自定义)
@@ -72,7 +82,7 @@
 			}
 		}
 		//渲染组件
-		ReactDOM.render(<Add count={101}/>,document.getElementById('test'))
+		ReactDOM.render(<Add name="tianyu"/>,document.getElementById('test'))
 	</script>
 </body>
 </html>
