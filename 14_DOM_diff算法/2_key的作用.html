@@ -46,7 +46,86 @@
 								1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。
 								2.如果确定只是简单的展示数据，用index也是可以的。
    */
+
+	 /* 
+			 慢动作分析（index）：
+					 旧的数据：
+					 			{id:1,name:"小张",age:18},
+								{id:2,name:"小李",age:19},
+					 旧的虚拟DOM：
+					 			<li key=0>小张--18<input/></li>
+								<li key=1>小李--19<input/></li>
+								 
+					 新的数据：
+					 			{id:3,name:"小王",age:20},
+					 			{id:1,name:"小张",age:18},
+								{id:2,name:"小李",age:19},
+					 新的虚拟DOM：
+					 			<li key=0>小王--20<input/></li>
+					 			<li key=1>小张--18<input/></li>
+								<li key=2>小李--19<input/></li>
+								 
+				慢动作分析（id）：
+						旧的数据：
+					 			{id:1,name:"小张",age:18},
+								{id:2,name:"小李",age:19},
+					 旧的虚拟DOM：
+					 			<li key=1>小张--18<input/></li>
+								<li key=2>小李--19<input/></li>
+								 
+					 新的数据：
+					 			{id:3,name:"小王",age:20},
+					 			{id:1,name:"小张",age:18},
+								{id:2,name:"小李",age:19},
+					 新的虚拟DOM：
+					 			<li key=3>小王--20<input/></li>
+					 			<li key=1>小张--18<input/></li>
+								<li key=2>小李--19<input/></li>
+	 */
 	
+	class Person extends React.Component{
+
+		state = {
+			persons:[
+				{id:1,name:"小张",age:18},
+				{id:2,name:"小李",age:19},
+			]
+		}
+
+		addWang = ()=>{
+			const {persons} = this.state
+			const p = {id:persons.length+1,name:"小王",age:20}
+			this.setState({persons:[p,...persons]})
+		}
+
+		render(){
+			return (
+				<div>
+					<button onClick={this.addWang}>添加一个小王</button>
+					<h1>使用index索引值作为key</h1>
+					<ul>
+						{
+							this.state.persons.map((p,index)=>{
+								return <li key={index}>{p.name}--{p.age}<input/></li>
+							})
+						}
+					</ul>
+					<hr/>
+					<hr/>
+					<h1>使用id作为key</h1>
+					<ul>
+						{
+							this.state.persons.map((p)=>{
+								return <li key={p.id}>{p.name}--{p.age}<input/></li>
+							})
+						}
+					</ul>
+				</div>
+			)
+		}
+	}
+
+	ReactDOM.render(<Person/>,document.getElementById('test'))
 </script>
 </body>
 </html>
