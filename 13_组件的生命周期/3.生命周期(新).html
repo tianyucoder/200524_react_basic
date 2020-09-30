@@ -37,58 +37,29 @@
 				console.log('constructor');
 				super()
 				//初始化状态
-				this.state = {count:0,carName:'马自达·阿特兹'}
+				this.state = {count:0}
 			}
-			
-			//组件挂载完毕的钩子
-			componentDidMount(){
-			 console.log('componentDidMount');
+
+			//从props获取一个衍生的状态
+			//只有一个使用场景：组件的state完全取决于外部传递过来的props
+			static getDerivedStateFromProps(props,state){
+				console.log('@',props,state);
+				console.log('getDerivedStateFromProps');
+				return {count:props.count}
 			}
-			
-			//组件即将卸载的钩子
-			componentWillUnmount(){
-				console.log('componentWillUnmount');
-			}
-			
-			//组件将要挂载的钩子
-			UNSAFE_componentWillMount(){
-				console.log('componentWillMount');
-			}
-			
-			//控制组件是否可以更新的钩子(返回值：true(默认) false)
-			shouldComponentUpdate(){
-				console.log('shouldComponentUpdate');
-				return true
-			}
-			
-			//组件将要更新的钩子
-			UNSAFE_componentWillUpdate(){
-				console.log('componentWillUpdate');
-			}
-			
-			//组件完成更新的钩子
-			componentDidUpdate(){
-				console.log('componentDidUpdate');
-			}
-			
+
 			//卸载组件(自定义)
 			death = ()=>{
 				//卸载组件
 				ReactDOM.unmountComponentAtNode(document.getElementById('test'))
 			}
+			
 			//加1的方法(自定义)
 			add = ()=>{
 				const {count} = this.state
 				this.setState({count:count+1})
 			}
-			//强制更新按钮的回调
-			qiangzhi = ()=>{
-				this.forceUpdate()
-			}
-			//老刘换车的方法
-			changCar = ()=>{
-				this.setState({carName:'奔驰·c63'})
-			}
+			
 			render(){
 				console.log('render');
 				return (
@@ -96,27 +67,12 @@
 						<h1>当前的和为：{this.state.count}</h1>
 						<button onClick={this.death}>不活了</button>
 						<button onClick={this.add}>点我加1</button>
-						<button onClick={this.qiangzhi}>点我进行强制更新</button>
-						<hr/>
-						<Car carName={this.state.carName}/>	
-						<button onClick={this.changCar}>换车</button>
 					</div>
 				)
 			}
 		}
-		
-		//定义一个汽车组件
-		class Car extends React.Component{
-			UNSAFE_componentWillReceiveProps(){
-				console.log('------Car------componentWillReceiveProps');
-			}
-			render(){
-				const {carName} = this.props
-				return <h2>我有一台车，型号是：{carName}</h2>
-			}
-		}
 		//渲染组件
-		ReactDOM.render(<Add/>,document.getElementById('test'))
+		ReactDOM.render(<Add count={101}/>,document.getElementById('test'))
 	</script>
 </body>
 </html>
