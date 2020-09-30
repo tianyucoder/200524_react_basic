@@ -16,7 +16,7 @@
 <script type="text/babel">
 	//验证DOM Diff算法
 	
-  class HelloWorld extends React.Component {
+  class Time extends React.Component {
     state = {
       date: new Date()
     }
@@ -34,13 +34,13 @@
         <p>
 					<h1>hello</h1>
 					<input type="text"/>
-					<span>现在是：{this.state.date.toTimeString()}</span>
+					<span>现在是：{this.state.date.toTimeString()}<input type="text"/></span>
         </p>
       )
     }
   }
 
-  ReactDOM.render(<HelloWorld/>,document.getElementById('example'))
+  ReactDOM.render(<Time/>,document.getElementById('example'))
 </script>
 </body>
 </html>
